@@ -1,0 +1,10 @@
+.ProseMirror {
+    outline: none;
+    width: 768px;
+    padding: 0.5rem; /* Assuming 1 spacing unit is 0.25rem, so p-2 would be 0.5rem */
+}
+
+.ProseMirror .my-comment {
+    background-color: #d98200; /* Equivalent of bg-yellow-700 in Tailwind */
+    border-bottom: 2px solid #ffcb69; /* Equivalent of border-b-2 border-yellow-200 in Tailwind */
+}

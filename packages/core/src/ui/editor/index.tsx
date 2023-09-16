@@ -19,6 +19,7 @@ import { useDebouncedCallback } from "use-debounce";
 import { v4 } from "uuid";
 import { CommentIcon } from "./CommentIcon";
 import { EditorBubbleMenu } from "./bubble-menu";
+import "./comment.css";
 import { defaultEditorContent } from "./default-content";
 import { defaultExtensions } from "./extensions";
 import Comment from "./extensions/comment";
@@ -310,7 +311,10 @@ export default function Editor({
                         {editor?.isActive("image") && (
                             <ImageResizer editor={editor} />
                         )}
-                        <EditorContent editor={editor} />
+                        <EditorContent
+                            editor={editor}
+                            className="prose prose-invert"
+                        />
                     </>
                 )}
             </div>
