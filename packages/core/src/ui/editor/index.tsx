@@ -289,7 +289,7 @@ export default function Editor({
     }, [editor, content, hydrated]);
 
     return (
-        <>
+        <div className="flex">
             <div
                 // onClick={() => {
                 //     editor?.chain().focus().run();
@@ -399,6 +399,6 @@ export default function Editor({
                     )}
                 </section>
             )}
-        </>
+        </div>
     );
 }
