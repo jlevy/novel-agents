@@ -2,10 +2,10 @@
 
 import { useEffect, useRef, useState } from "react";
 import {
-  useEditor,
   EditorContent,
-  JSONContent,
   Extension,
+  JSONContent,
+  useEditor,
 } from "@tiptap/react";
 import { defaultEditorProps } from "./props";
 import { defaultExtensions } from "./extensions";
@@ -21,6 +21,7 @@ import { ImageResizer } from "./extensions/image-resizer";
 import { EditorProps } from "@tiptap/pm/view";
 import { Editor as EditorClass } from "@tiptap/core";
 import { getCollaborationExtensions } from "@/ui/editor/extensions/collaboration";
+import { DEFAULT_DOCUMENT_ID } from "@/ui/editor/constants";
 
 export default function Editor({
   completionApi = "/api/generate",
@@ -96,7 +97,7 @@ export default function Editor({
     extensions: [
       ...defaultExtensions,
       ...extensions,
-      ...getCollaborationExtensions("defaultDoc", "robert", "#abcdef"),
+      ...getCollaborationExtensions(DEFAULT_DOCUMENT_ID, "Human", "#abcdef"),
     ],
     editorProps: {
       ...defaultEditorProps,
@@ -192,7 +193,8 @@ export default function Editor({
   // Hydrate the editor with the content from localStorage.
   useEffect(() => {
     if (editor && content && !hydrated) {
-      editor.commands.setContent(content);
+      // We disable setting the content her to avoid it looking like an update to the ydoc
+      // editor.commands.setContent(content);
       setHydrated(true);
     }
   }, [editor, content, hydrated]);

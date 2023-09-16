@@ -421,6 +421,9 @@ importers:
       use-debounce:
         specifier: ^9.0.4
         version: 9.0.4(react@18.2.0)
+      y-indexeddb:
+        specifier: ^9.0.11
+        version: 9.0.11(yjs@13.6.7)
       y-prosemirror:
         specifier: ^1.0.20
         version: 1.0.20(prosemirror-model@1.19.3)(prosemirror-state@1.4.3)(prosemirror-view@1.31.7)(y-protocols@1.0.5)(yjs@13.6.7)
@@ -7309,6 +7312,15 @@ packages:
 
   /xmlchars@2.2.0:
     resolution: {integrity: sha512-JZnDKK8B0RCDw84FNdDAIpZK+JuJw+s7Lz8nksI7SIuU3UXJJslUthsi+uWBUYOwPFwW7W7PRLRfUKpxjtjFCw==}
+    dev: false
+
+  /y-indexeddb@9.0.11(yjs@13.6.7):
+    resolution: {integrity: sha512-HOKQ70qW1h2WJGtOKu9rE8fbX86ExVZedecndMuhwax3yM4DQsQzCTGHt/jvTrFZr/9Ahvd8neD6aZ4dMMjtdg==}
+    peerDependencies:
+      yjs: ^13.0.0
+    dependencies:
+      lib0: 0.2.85
+      yjs: 13.6.7
     dev: false
 
   /y-prosemirror@1.0.20(prosemirror-model@1.19.3)(prosemirror-state@1.4.3)(prosemirror-view@1.31.7)(y-protocols@1.0.5)(yjs@13.6.7):
