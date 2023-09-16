@@ -13,6 +13,7 @@
   "dependencies": {
     "@radix-ui/react-popover": "^1.0.6",
     "@tiptap/core": "^2.0.4",
+    "@tiptap/extension-collaboration": "^2.1.10",
     "@tiptap/extension-color": "^2.0.4",
     "@tiptap/extension-highlight": "^2.0.4",
     "@tiptap/extension-horizontal-rule": "^2.0.4",
@@ -36,10 +37,10 @@
     "@vercel/kv": "^0.2.2",
     "ai": "^2.2.9",
     "clsx": "^1.2.1",
-    "eslint": "8.36.0",
     "eslint-config-next": "13.2.4",
     "eventsource-parser": "^0.1.0",
     "framer-motion": "^10.15.1",
+    "install": "^0.13.0",
     "lucide-react": "^0.244.0",
     "next": "13.4.20-canary.9",
     "next-themes": "^0.2.1",
@@ -58,7 +59,7 @@
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.9",
     "autoprefixer": "^10.4.14",
-    "eslint": "^7.32.0",
+    "eslint": "8.36.0",
     "postcss": "^8.4.27",
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.3.0",
