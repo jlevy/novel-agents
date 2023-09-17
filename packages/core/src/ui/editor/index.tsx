@@ -164,7 +164,7 @@ export default function Editor({
     const commentsSectionRef = useRef<HTMLDivElement | null>(null);
 
     const addReplyToComment = (commentId: string, replyContent: string) => {
-        const getPrevTextFromCommentId = (commentId: string): string => {};
+        // const getPrevTextFromCommentId = (commentId: string): void => void;
 
         const newReply = getNewComment(replyContent);
 
@@ -173,16 +173,20 @@ export default function Editor({
 
         console.log("**** prompt ****\n", prompt);
         complete(prompt).then(() => {
-            // TOOD: Mark as done
-            // setComments(
-            //   comments.map((comment) => {
-            //     if (comment.id === commentId) {
-            //       return {
-            //         ...comment,
-            //         replies: [...comment.replies, "Done"],
-            //       };
-            //     }
-            //     return comment;
+            console.log("done");
+            const doneReply = getNewComment("Done");
+
+            setComments(
+                comments.map((comment) => {
+                    if (comment.id === commentId) {
+                        return {
+                            ...comment,
+                            replies: [...comment.replies, doneReply],
+                        };
+                    }
+                    return comment;
+                })
+            );
         });
 
         setComments(
