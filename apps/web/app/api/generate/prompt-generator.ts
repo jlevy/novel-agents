@@ -9,24 +9,25 @@ const openai = new OpenAI({
 
 // Parse out the prompt, which will be of the form "@Jennifer can you edit this ?". Split out the recipient name if it begins with a @.
 const parseRawPrompt = (rawPrompt: string) => {
-  // Take the _last_ @ mention in case we are recieiving extra, earlier context in a doc.
-  if (!rawPrompt.includes("@")) {
-    return { recipient: null, prompt: rawPrompt };
-  }
-  // Extract everything after the _last_ @
-  rawPrompt = "@" + (rawPrompt.split("@").pop() || "");
+  const lastAtSignIndex = rawPrompt.lastIndexOf("@");
 
-  const recipientRegex = /@(\S+)(.*)/g;
-  const recipientMatch = recipientRegex.exec(rawPrompt);
-  const recipient = recipientMatch?.[1];
-  const prompt = recipientMatch?.[2];
-  return { recipient, prompt };
+  if (lastAtSignIndex === -1) {
+    return { recipient: null, userRequest: null, contextText: rawPrompt };
+  }
+
+  const contextText = rawPrompt.substring(0, lastAtSignIndex).trim();
+  const remainingText = rawPrompt.substring(lastAtSignIndex + 1).trim();
+
+  const [recipient, ...userRequestParts] = remainingText.split(/\s+/);
+  const userRequest = userRequestParts.join(" ");
+
+  return { recipient, userRequest, contextText };
 };
 
 export const generateFromAgent = async (rawPrompt: string) => {
-  console.log("Generating from raw prompt:", rawPrompt);
+  console.log(`Generating from raw prompt:\n---\n${rawPrompt}\n---\n`);
 
-  const { recipient, prompt } = parseRawPrompt(rawPrompt);
+  const { recipient, userRequest, contextText } = parseRawPrompt(rawPrompt);
   if (!recipient) {
     return new Response("No agent name found.", {
       status: 400,
@@ -39,17 +40,20 @@ export const generateFromAgent = async (rawPrompt: string) => {
       status: 400,
     });
   }
+  console.log("Content:", { recipient, userRequest, contextText });
   console.log("Using agent:", agent);
 
   const { messages } = agent;
 
-  const response = await openai.chat.completions.create({
+  const fullPrompt = userRequest + "\n\n" + contextText;
+
+  const apiRequest = {
     model: "gpt-3.5-turbo",
     messages: [
       ...messages,
       {
         role: "user",
-        content: prompt,
+        content: fullPrompt,
       },
     ],
     temperature: 0.7,
@@ -58,7 +62,11 @@ export const generateFromAgent = async (rawPrompt: string) => {
     presence_penalty: 0,
     stream: true,
     n: 1,
-  });
+  };
+
+  console.log("Sending API request:", apiRequest);
+
+  const response = await openai.chat.completions.create(apiRequest);
 
   // Convert the response into a friendly text-stream
   const stream = OpenAIStream(response);

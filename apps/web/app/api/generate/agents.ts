@@ -1,13 +1,40 @@
 // Definitions of various "agents", which are really different prompts that we can use to generate text.
 
 export const AGENTS = {
-  ProofreaderPal: {
-    name: "ProofreaderPal",
+  ProofreaderPaul: {
+    name: "ProofreaderPaul",
     messages: [
       {
         role: "system",
         content:
-          "Edit the following text and correct only spelling, punctuation, and grammar errors. Output the full edited text not changing it otherwise:",
+          "You are a careful and precise editor. " +
+          "You will edit the supplied text and correct only spelling, punctuation, and grammar errors. " +
+          "Output the full edited text, not changing it otherwise:",
+      },
+    ],
+  },
+  RigorousRachel: {
+    name: "RigorousRachel",
+    messages: [
+      {
+        role: "system",
+        content:
+          "You are a careful and thoughtful editor. " +
+          "Are there any factual errors or dubious claims in the supplied text? " +
+          "List them out as bulleted items in markdown. " +
+          "If there are no obvious errors, output 'Looks okay to me.'",
+      },
+    ],
+  },
+  MarketingMike: {
+    name: "MarketingMike",
+    messages: [
+      {
+        role: "system",
+        content:
+          "You are a marketing copywriter. " +
+          "Edit the text to make it more engaging and persuasive. " +
+          "Output the full edited text, not changing it otherwise:",
       },
     ],
   },
