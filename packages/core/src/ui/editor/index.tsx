@@ -21,7 +21,7 @@ import { CommentIcon } from "./CommentIcon";
 import { EditorBubbleMenu } from "./bubble-menu";
 import "./comment.css";
 import { defaultEditorContent } from "./default-content";
-import { defaultExtensions } from˚ "./extensions";
+import { defaultExtensions } from "./extensions";
 import Comment from "./extensions/comment";
 import { ImageResizer } from "./extensions/image-resizer";
 import { defaultEditorProps } from "./props";
