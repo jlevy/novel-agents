@@ -1,8 +1,42 @@
 // Definitions of various "agents", which are really different prompts that we can use to generate text.
 
-export const AGENTS = {
+type AgentAction = "insert" | "replace";
+
+type AgentType = {
+  name: string;
+  type: AgentAction;
+  messages: any[];
+};
+
+export const AGENTS: Record<string, AgentType> = {
+  BulletpointBev: {
+    name: "BulletpointBev",
+    type: "insert",
+    messages: [
+      {
+        role: "system",
+        content:
+          "You are a careful and precise writer who always uses bulletpoints." +
+          "Continue writing this text with a few clear and punchy bullet points, in Markdown format:",
+      },
+    ],
+  },
+  CleverCathy: {
+    name: "CleverCathy",
+    type: "insert",
+    messages: [
+      {
+        role: "system",
+        content:
+          "You are a careful and precise writer. " +
+          "You've been given the following text and want to continue writing" +
+          "Output the full edited text, not changing it otherwise:",
+      },
+    ],
+  },
   ProofreaderPaul: {
     name: "ProofreaderPaul",
+    type: "replace",
     messages: [
       {
         role: "system",
@@ -15,6 +49,7 @@ export const AGENTS = {
   },
   RigorousRachel: {
     name: "RigorousRachel",
+    type: "replace",
     messages: [
       {
         role: "system",
@@ -28,6 +63,7 @@ export const AGENTS = {
   },
   MarketingMike: {
     name: "MarketingMike",
+    type: "replace",
     messages: [
       {
         role: "system",
@@ -40,11 +76,12 @@ export const AGENTS = {
   },
   JokingJenny: {
     name: "JokingJenny",
+    type: "insert",
     messages: [
       {
         role: "system",
         content:
-          "Tell me a brief and corny joke related to the following content:",
+          "Tell me a brief and corny joke related to the following content. Begin the joke with 'That reminds me of a joke.'",
       },
     ],
   },
