@@ -122,9 +122,26 @@ export default function Editor({
 }) {
     // Comment Stuff
     const [comments, setComments] = useState<Comment[]>([]);
+
     const [activeCommentId, setActiveCommentId] = useState<string | null>(null);
+    const [activeCommentValue, setActiveCommentValue] = useState<string>("");
 
     const commentsSectionRef = useRef<HTMLDivElement | null>(null);
+
+    const addReplyToComment = (commentId: string, replyContent: string) => {
+        setComments(
+            comments.map((comment) => {
+                if (comment.id === commentId) {
+                    const newReply = getNewComment(replyContent);
+                    return {
+                        ...comment,
+                        replies: [...comment.replies, newReply],
+                    };
+                }
+                return comment;
+            })
+        );
+    };
 
     const focusCommentWithActiveId = (id: string) => {
         if (!commentsSectionRef.current) return;
@@ -333,6 +350,11 @@ export default function Editor({
                                         ? "border-2 border-blue-400"
                                         : ""
                                 } box-border`}
+                                onClick={() => {
+                                    if (comment.id === activeCommentId) return;
+                                    setActiveCommentId(comment.id);
+                                    editor.commands.setComment(comment.id);
+                                }}
                             >
                                 <span className="flex items-end gap-2">
                                     <a
@@ -346,11 +368,15 @@ export default function Editor({
                                         {comment.createdAt.toLocaleDateString()}
                                     </span>
                                 </span>
+                                <span>{comment.content}</span>
+                                {comment.replies.map((reply, i) => (
+                                    <span key={i}>{reply.content}</span>
+                                ))}
 
                                 <input
-                                    value={comment.content || ""}
+                                    value={activeCommentValue}
                                     disabled={comment.id !== activeCommentId}
-                                    className={`rounded-lg bg-transparent p-2 text-inherit focus:outline-none ${
+                                    className={`rounded-lg  p-2 text-inherit focus:outline-none ${
                                         comment.id === activeCommentId
                                             ? "bg-slate-600"
                                             : ""
@@ -360,26 +386,15 @@ export default function Editor({
                                         const value = (
                                             event.target as HTMLInputElement
                                         ).value;
-
-                                        setComments(
-                                            comments.map((comment) => {
-                                                if (
-                                                    comment.id ===
-                                                    activeCommentId
-                                                ) {
-                                                    return {
-                                                        ...comment,
-                                                        content: value,
-                                                    };
-                                                }
-
-                                                return comment;
-                                            })
-                                        );
+                                        setActiveCommentValue(value);
                                     }}
                                     onKeyDown={(event) => {
                                         if (event.key !== "Enter") return;
-
+                                        addReplyToComment(
+                                            comment.id,
+                                            activeCommentValue
+                                        );
+                                        setActiveCommentValue("");
                                         setActiveCommentId(null);
                                     }}
                                 />
