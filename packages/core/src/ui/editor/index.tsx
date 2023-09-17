@@ -165,10 +165,30 @@ export default function Editor({
   const commentsSectionRef = useRef<HTMLDivElement | null>(null);
 
   const addReplyToComment = (commentId: string, replyContent: string) => {
+    const getPrevTextFromCommentId = (commentId: string): string => {};
+
+    const newReply = getNewComment(replyContent);
+
+    const prompt =
+      getPrevText(editor!, { chars: 5000 }) + "\n\n" + replyContent;
+
+    console.log("**** prompt ****\n", prompt);
+    complete(prompt).then(() => {
+      // TOOD: Mark as done
+      // setComments(
+      //   comments.map((comment) => {
+      //     if (comment.id === commentId) {
+      //       return {
+      //         ...comment,
+      //         replies: [...comment.replies, "Done"],
+      //       };
+      //     }
+      //     return comment;
+    });
+
     setComments(
       comments.map((comment) => {
         if (comment.id === commentId) {
-          const newReply = getNewComment(replyContent);
           return {
             ...comment,
             replies: [...comment.replies, newReply],
