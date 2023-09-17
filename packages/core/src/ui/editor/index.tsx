@@ -330,7 +330,6 @@ export default function Editor({
                         )}
                         <EditorContent
                             editor={editor}
-                            className="prose prose-invert"
                         />
                     </>
                 )}
