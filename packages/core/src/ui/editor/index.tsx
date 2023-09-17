@@ -219,11 +219,12 @@ export default function Editor({
     const { complete, completion, isLoading, stop } = useCompletion({
         id: "novel",
         api: completionApi,
-        onFinish: (_prompt, completion) => {
-            editor?.commands.setTextSelection({
-                from: editor.state.selection.from - completion.length,
-                to: editor.state.selection.from,
-            });
+        onFinish: (prompt, completion) => {
+            console.log("Completion done", { prompt, completion });
+            // editor?.commands.setTextSelection({
+            //     from: editor.state.selection.from - completion.length,
+            //     to: editor.state.selection.from,
+            // });
         },
         onError: (err) => {
             toast.error(err.message);
