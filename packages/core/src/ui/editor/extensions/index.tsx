@@ -58,6 +58,8 @@ export const defaultExtensions = [
       width: 4,
     },
     gapcursor: false,
+    // Disable default history as collaboration stores its own
+    history: false,
   }),
   // patch to fix horizontal rule bug: https://github.com/ueberdosis/tiptap/pull/3859#issuecomment-1536799740
   HorizontalRule.extend({

@@ -424,6 +424,9 @@ importers:
       y-indexeddb:
         specifier: ^9.0.11
         version: 9.0.11(yjs@13.6.7)
+      y-partykit:
+        specifier: ^0.0.5
+        version: 0.0.5
       y-prosemirror:
         specifier: ^1.0.20
         version: 1.0.20(prosemirror-model@1.19.3)(prosemirror-state@1.4.3)(prosemirror-view@1.31.7)(y-protocols@1.0.5)(yjs@13.6.7)
@@ -4828,6 +4831,10 @@ packages:
     resolution: {integrity: sha512-aVx8ztPv7/2ULbArGJ2Y42bG1mEQ5mGjpdvrbJcJFU3TbYybe+QlLS4pst9zV52ymy2in1KpFPiZnAOATxD4+Q==}
     dev: true
 
+  /lodash.debounce@4.0.8:
+    resolution: {integrity: sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==}
+    dev: false
+
   /lodash.isplainobject@4.0.6:
     resolution: {integrity: sha512-oSXzaWypCMHkPC3NvBEaPHf0KsA5mvPrOPgQWDsbg8n7orZ290M0BmC/jgRZ4vcJ6DTAhjrsSYgdsW/F+MFOBA==}
     dev: true
@@ -7320,6 +7327,16 @@ packages:
       yjs: ^13.0.0
     dependencies:
       lib0: 0.2.85
+      yjs: 13.6.7
+    dev: false
+
+  /y-partykit@0.0.5:
+    resolution: {integrity: sha512-MK1x7QNJPsrUS9hPCJokigR2o+AcGEUdCYiEP14pSHXCeQ/3jDQiIkEeWlYjU8fYmLUprzpiS9f86skmiC4GKA==}
+    dependencies:
+      lib0: 0.2.85
+      lodash.debounce: 4.0.8
+      react: 18.2.0
+      y-protocols: 1.0.5
       yjs: 13.6.7
     dev: false
 

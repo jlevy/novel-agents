@@ -22,6 +22,34 @@ import { EditorProps } from "@tiptap/pm/view";
 import { Editor as EditorClass } from "@tiptap/core";
 import { getCollaborationExtensions } from "@/ui/editor/extensions/collaboration";
 import { DEFAULT_DOCUMENT_ID } from "@/ui/editor/constants";
+import { createHeadlessEditor } from "@/ui/editor/headlessEditor";
+
+// Instantiate a headless editor and try and add some data to it
+// setTimeout(() => {
+//   const agentName = "Caecilius";
+//   const e = createHeadlessEditor(DEFAULT_DOCUMENT_ID, agentName, "#F98181");
+//
+//   e.chain().focus().setTextSelection(e.state.doc.nodeSize);
+//   console.log("Editor", e.isCapturingTransaction, e.isEditable, e.isFocused);
+//
+//   const li =
+//     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pretium ligula eget magna facilisis condimentum
+// vel quis mi. Donec ac nunc sollicitudin elit tincidunt sollicitudin eget ut quam. Curabitur sed ipsum quam. Aenean
+// faucibus id magna at cursus. Morbi sit amet felis vehicula, faucibus turpis in, cursus nisl. Nulla facilisi. Quisque
+// eget ipsum sed ex mollis mollis. Nullam viverra orci ut diam ornare, quis imperdiet metus rutrum. Interdum et
+// malesuada fames ac ante ipsum primis in faucibus. In lobortis tincidunt velit sit amet posuere. In in sapien
+// lacinia, vulputate lorem at, pretium nibh. Nulla facilisi. Praesent pulvinar dui scelerisque elit placerat
+// tempor.\n" + "\n" + "Curabitur elementum vel leo in semper. Praesent id ex odio. Ut posuere erat ut aliquet gravida.
+// Vivamus quis urna eget urna egestas vulputate et quis enim. Curabitur porttitor vitae tortor at convallis. Nunc leo
+// lacus, lacinia ut interdum ac, eleifend a tortor. Donec turpis magna, mollis at luctus ac, eleifend vel sem. Integer
+// gravida semper est, at malesuada elit tempor sit amet. Etiam justo nisl, pretium ac finibus nec, scelerisque a
+// massa. Vivamus ut lobortis augue. Fusce condimentum orci blandit mauris rhoncus viverra."; setTimeout(async () => { console.log("USERS", e.storage.collaborationCursor.users);  for (const char of [...li]) { e.commands.focus(); const tr = e.state.tr; tr.insertText(char); e.view.dispatch(tr); // console.log(e.state.selection.to); await new Promise((resolve) => setTimeout(resolve, 50)); } }, 1000); }, 2000);
+
+const collaborationExtensions = getCollaborationExtensions(
+  DEFAULT_DOCUMENT_ID,
+  "Human",
+  "#abcdef"
+);
 
 export default function Editor({
   completionApi = "/api/generate",
@@ -97,7 +125,7 @@ export default function Editor({
     extensions: [
       ...defaultExtensions,
       ...extensions,
-      ...getCollaborationExtensions(DEFAULT_DOCUMENT_ID, "Human", "#abcdef"),
+      ...collaborationExtensions,
     ],
     editorProps: {
       ...defaultEditorProps,

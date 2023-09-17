@@ -3,22 +3,37 @@ import { WebrtcProvider } from "y-webrtc";
 import * as Y from "yjs";
 import { CollaborationCursor } from "@tiptap/extension-collaboration-cursor";
 import { IndexeddbPersistence } from "y-indexeddb";
+// import YPartyKitProvider from "y-partykit/provider";
 
-const providers: { [key: string]: WebrtcProvider } = {};
-const getProvider = (documentId: string) => {
-  if (!providers[documentId]) {
+const providers: {
+  [documentId: string]: {
+    [username: string]: WebrtcProvider;
+  };
+} = {};
+export const getProvider = (documentId: string, username: string) => {
+  const partykitHost = "yjs.threepointone.partykit.dev/party";
+  if (!providers[documentId]?.[username]) {
     const doc = new Y.Doc();
-    providers[documentId] = new WebrtcProvider(documentId, doc);
+    const provider = new WebrtcProvider(documentId, doc);
+    // const provider = new YPartyKitProvider(partykitHost, documentId, doc);
 
-    const idbProvider = new IndexeddbPersistence(
-      documentId,
-      providers[documentId].doc
-    );
-    idbProvider.on("synced", () => {
-      console.log("Content from the local database was loaded");
-    });
+    if (!providers[documentId]) {
+      providers[documentId] = { [username]: provider };
+    } else {
+      providers[documentId][username] = provider;
+    }
+
+    if (typeof window !== "undefined") {
+      const idbProvider = new IndexeddbPersistence(
+        documentId,
+        providers[documentId][username].doc
+      );
+      idbProvider.on("synced", () => {
+        console.log("Content from the local database was loaded");
+      });
+    }
   }
-  return providers[documentId];
+  return providers[documentId][username];
 };
 
 export function getCollaborationExtensions(
@@ -26,7 +41,16 @@ export function getCollaborationExtensions(
   username: string,
   color: string
 ) {
-  const provider = getProvider(documentId);
+  const provider = getProvider(documentId, username);
+
+  console.log(
+    "CREATING COLLBORATION",
+    documentId,
+    username,
+    "Client id",
+    provider.doc.clientID
+  );
+
   return [
     Collaboration.configure({
       document: provider.doc,
