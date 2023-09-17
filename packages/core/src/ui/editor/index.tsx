@@ -432,7 +432,11 @@ export default function Editor({
                                 ))}
 
                                 <input
-                                    value={activeCommentValue}
+                                    value={
+                                        comment.id === activeCommentId
+                                            ? activeCommentValue
+                                            : ""
+                                    }
                                     disabled={comment.id !== activeCommentId}
                                     className={`rounded-lg bg-transparent p-2 text-inherit focus:outline-none ${
                                         comment.id === activeCommentId
