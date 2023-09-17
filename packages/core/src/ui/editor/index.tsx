@@ -173,7 +173,6 @@ export default function Editor({
 
         console.log("**** prompt ****\n", prompt);
         complete(prompt).then(() => {
-            console.log("done");
             const doneReply = getNewComment("Done");
 
             setComments(
@@ -181,7 +180,7 @@ export default function Editor({
                     if (comment.id === commentId) {
                         return {
                             ...comment,
-                            replies: [...comment.replies, doneReply],
+                            replies: [...comment.replies, newReply, doneReply],
                         };
                     }
                     return comment;
