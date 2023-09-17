@@ -7,7 +7,7 @@ export default function Page() {
       <div
         className="absolute bottom-5 left-5 z-10 max-h-fit rounded-lg p-4 transition-colors duration-200 sm:bottom-auto sm:top-5 text-xl text-lime-800"
       >
-        AgentDocs
+        📄 AgentDocs
       </div>
       <Menu />
       <Editor />

@@ -5,6 +5,6 @@
 }
 
 .ProseMirror .my-comment {
-    background-color: #d98200; /* Equivalent of bg-yellow-700 in Tailwind */
-    border-bottom: 2px solid #ffcb69; /* Equivalent of border-b-2 border-yellow-200 in Tailwind */
+    background-color: #fef9cd; /* Equivalent of bg-yellow-700 in Tailwind */
+    border-bottom: 2px solid #fff069; /* Equivalent of border-b-2 border-yellow-200 in Tailwind */
 }

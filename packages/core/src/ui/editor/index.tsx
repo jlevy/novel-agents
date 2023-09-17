@@ -165,7 +165,7 @@ export default function Editor({
   const commentsSectionRef = useRef<HTMLDivElement | null>(null);
 
   const addReplyToComment = (commentId: string, replyContent: string) => {
-    const getPrevTextFromCommentId = (commentId: string): string => {};
+    // const getPrevTextFromCommentId = (commentId: string): string => {};
 
     const newReply = getNewComment(replyContent);
 
