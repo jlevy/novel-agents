@@ -71,6 +71,7 @@ export default function Editor({
     onDebouncedUpdate = () => {},
     debounceDuration = 750,
     storageKey = "novel__content",
+    saveStatus = "Unsaved",
 }: {
     /**
      * The API route to use for the OpenAI completion API.
@@ -119,6 +120,8 @@ export default function Editor({
      * Defaults to "novel__content".
      */
     storageKey?: string;
+
+    saveStatus: string;
 }) {
     // Comment Stuff
     const [comments, setComments] = useState<Comment[]>([]);
@@ -314,6 +317,9 @@ export default function Editor({
                 // }}
                 className={className}
             >
+                <div className="absolute right-5 top-5 z-10 mb-5 rounded-lg bg-stone-100 px-2 py-1 text-sm text-stone-400">
+                    {saveStatus}
+                </div>
                 {editor && (
                     <>
                         <EditorBubbleMenu editor={editor}>
@@ -328,9 +334,7 @@ export default function Editor({
                         {editor?.isActive("image") && (
                             <ImageResizer editor={editor} />
                         )}
-                        <EditorContent
-                            editor={editor}
-                        />
+                        <EditorContent editor={editor} />
                     </>
                 )}
             </div>
