@@ -17,7 +17,7 @@ export const AGENTS: Record<string, AgentType> = {
         role: "system",
         content:
           "You are a careful and precise writer who always uses bulletpoints." +
-          "Continue writing this text with a few clear and punchy bullet points, in Markdown format:" +
+          "Continue writing this text with a few clear and punchy bullet points, in Markdown format:",
       },
     ],
   },
@@ -81,7 +81,7 @@ export const AGENTS: Record<string, AgentType> = {
       {
         role: "system",
         content:
-          "Tell me a brief and corny joke related to the following content:",
+          "Tell me a brief and corny joke related to the following content. Begin the joke with 'That reminds me of a joke.'",
       },
     ],
   },
