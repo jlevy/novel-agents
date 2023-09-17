@@ -3,19 +3,19 @@ import { WebrtcProvider } from "y-webrtc";
 import * as Y from "yjs";
 import { CollaborationCursor } from "@tiptap/extension-collaboration-cursor";
 import { IndexeddbPersistence } from "y-indexeddb";
-// import YPartyKitProvider from "y-partykit/provider";
+import YPartyKitProvider from "y-partykit/provider";
 
 const providers: {
   [documentId: string]: {
-    [username: string]: WebrtcProvider;
+    [username: string]: YPartyKitProvider;
   };
 } = {};
 export const getProvider = (documentId: string, username: string) => {
   const partykitHost = "yjs.threepointone.partykit.dev/party";
   if (!providers[documentId]?.[username]) {
     const doc = new Y.Doc();
-    const provider = new WebrtcProvider(documentId, doc);
-    // const provider = new YPartyKitProvider(partykitHost, documentId, doc);
+    // const provider = new WebrtcProvider(documentId, doc);
+    const provider = new YPartyKitProvider(partykitHost, documentId, doc);
 
     if (!providers[documentId]) {
       providers[documentId] = { [username]: provider };
